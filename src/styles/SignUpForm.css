@@ -1,0 +1,66 @@
+.signup-form {
+    max-width: 400px; /* רוחב מקסימלי של הטופס */
+    margin: 50px auto; /* מרכז את הטופס אופקית ואנכית */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* צל יפה לטופס */
+  }
+  
+  .signup-form h2 {
+    text-align: center; /* מרכז את הכותרת */
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .signup-form input {
+    width: 100%; /* כל שדה יתפוס את רוחב הטופס */
+    margin: 10px 0; /* ריווח בין השדות */
+    padding: 12px; /* מרווח פנימי בתוך השדה */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .signup-form input:focus {
+    border-color: #007bff; /* צבע כחול בשדה בזמן פוקוס */
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+  }
+  
+  .signup-form button {
+    width: 100%; /* כפתור יתפוס את כל הרוחב */
+    padding: 12px;
+    background-color: #2e6ab8;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-form button:hover {
+    background-color: #364f7e; /* גוון כהה יותר */
+  }
+  
+  .signup-form .error {
+    color: #dc3545; /* צבע אדום להודעות שגיאה */
+    background: #f8d7da;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
+  .signup-form .success {
+    color: #1f54a3; /* צבע ירוק להודעות הצלחה */
+    background: #d4edda;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
