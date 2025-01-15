@@ -15,6 +15,7 @@ const UserDashboard = () => {
   const [editingUser, setEditingUser] = useState(null);
   const [deletingUser, setDeletingUser] = useState(null);
   const [isAddingUser, setIsAddingUser] = useState(false);
+  const [userCount, setUserCount] = useState(0);
   const [updatedData, setUpdatedData] = useState({
     username: "",
     fullName: "",
@@ -22,25 +23,37 @@ const UserDashboard = () => {
     password: "",
   });
 
+
   useEffect(() => {
-    fetchUsers().then((response) => dispatch(setUsers(response.data)));
-  }, [dispatch]);
+    const fetchAndSetUsers = async () => {
+      try {
+        const response = await fetchUsers();
+        dispatch(setUsers(response.data)); 
+        setUserCount(response.data.length); 
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+      }
+    };
+
+    fetchAndSetUsers();
+  }, [dispatch, users]);
 
   const handleAddUser = () => {
-    navigate("/signup"); // ניתוב לדף SignUpForm
+    navigate("/signup"); 
   };
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    navigate("/");
+    navigate("/", { replace: true });
   };
+  
 
   const handleCancel = () => {
     setEditingUser(null);
     setDeletingUser(null);
     setIsAddingUser(false);
   };
-
+  
   const handleDelete = (id) => {
     deleteUser(id).then(() => {
       dispatch(setUsers(users.filter((user) => user._id !== id)));
@@ -89,10 +102,10 @@ const UserDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      {/* לחצנים עליונים */}
       <div className="dashboard-header">
         <h1>User Dashboard</h1>
         <div className="header-buttons">
+        <span className="user-count">Number of users: {userCount}</span>
             <button className="small-button adduser-button" onClick={handleAddUser}>
             Add User
             </button>
@@ -136,7 +149,6 @@ const UserDashboard = () => {
         </table>
       )}
 
-      {/* מודל לעריכה */}
       {editingUser && (
         <div className="modal-overlay">
           <div className="modal">
@@ -178,7 +190,6 @@ const UserDashboard = () => {
         </div>
       )}
 
-      {/* מודל למחיקה */}
       {deletingUser && (
         <div className="modal-overlay">
           <div className="modal">

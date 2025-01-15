@@ -26,7 +26,7 @@ const SignUpForm = () => {
         setSuccess("User registered successfully!");
         setError("");
         setTimeout(() => {
-          navigate("/dashboard"); // מעבר לדף המשתמשים
+          navigate("/dashboard");
         }, 1500);
       })
       .catch((err) => {

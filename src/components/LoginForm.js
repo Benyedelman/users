@@ -22,7 +22,8 @@ const LoginForm = () => {
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
-      <h2>Login</h2>
+      <h1>Welcome</h1>
+      <h3>Login</h3>
       {error && <p className="error">{error}</p>}
       <input
         type="text"
@@ -39,9 +40,6 @@ const LoginForm = () => {
         required
       />
       <button type="submit">Login</button>
-      <p>
-        Don't have an account? <Link to="/signup">Sign Up</Link>
-      </p>
     </form>
   );
 };

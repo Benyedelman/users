@@ -2,63 +2,96 @@ import axios from "axios";
 
 const API_URL = "https://server-n42x.onrender.com/api";
 
-// פונקציית עזר להוספת Token לכותרות
 const getAuthHeaders = () => {
   const token = localStorage.getItem("accessToken");
   if (!token) {
     console.warn("No access token found in localStorage");
+    return null;
   }
   return {
     Authorization: ` ${token}`,
   };
 };
 
-// פונקציות API
 
-// התחברות ושמירת Token
 export const login = async (credentials) => {
-  const response = await axios.post(`${API_URL}/auth/login`, credentials);
-  if (response.data.token) {
-    localStorage.setItem("accessToken", response.data.token);
+  try {
+    const response = await axios.post(`${API_URL}/auth/login`, credentials);
+    if (response.data.token) {
+      localStorage.setItem("accessToken", response.data.token);
+    }
+    return response;
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw error;
   }
-  return response;
 };
 
-// קבלת רשימת משתמשים
 export const fetchUsers = async () => {
-  return axios.get(`${API_URL}/users`, {
-    headers: getAuthHeaders(),
-  });
+  try {
+    const headers = getAuthHeaders();
+    if (!headers) throw new Error("Authentication token missing.");
+
+    const response = await axios.get(`${API_URL}/users`, { headers });
+    return response;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    throw error;
+  }
 };
 
-// קבלת משתמש לפי ID
 export const fetchUserById = async (id) => {
-  return axios.get(`${API_URL}/users/${id}`, {
-    headers: getAuthHeaders(),
-  });
+  try {
+    const headers = getAuthHeaders();
+    if (!headers) throw new Error("Authentication token missing.");
+
+    const response = await axios.get(`${API_URL}/users/${id}`, { headers });
+    return response;
+  } catch (error) {
+    console.error(`Error fetching user by ID (${id}):`, error);
+    throw error;
+  }
 };
 
-// יצירת משתמש חדש
 export const createUser = async (userData) => {
-  return axios.post(`${API_URL}/users`, userData, {
-    headers: getAuthHeaders(),
-  });
+  try {
+    const headers = getAuthHeaders();
+    if (!headers) throw new Error("Authentication token missing.");
+
+    const response = await axios.post(`${API_URL}/users`, userData, { headers });
+    return response;
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error;
+  }
 };
 
-// עדכון פרטי משתמש
 export const updateUser = async (id, userData) => {
-  console.log("Token:", localStorage.getItem("accessToken"));
-  console.log("User Data:", userData);
-  console.log("User ID:", id);
+  try {
+    const headers = getAuthHeaders();
+    if (!headers) throw new Error("Authentication token missing.");
 
-  return axios.put(`${API_URL}/users/${id}`, userData, {
-    headers: getAuthHeaders(),
-  });
+    console.log("Token:", localStorage.getItem("accessToken"));
+    console.log("User Data:", userData);
+    console.log("User ID:", id);
+
+    const response = await axios.put(`${API_URL}/users/${id}`, userData, { headers });
+    return response;
+  } catch (error) {
+    console.error(`Error updating user (${id}):`, error);
+    throw error;
+  }
 };
 
-// מחיקת משתמש
 export const deleteUser = async (id) => {
-  return axios.delete(`${API_URL}/users/${id}`, {
-    headers: getAuthHeaders(),
-  });
+  try {
+    const headers = getAuthHeaders();
+    if (!headers) throw new Error("Authentication token missing.");
+
+    const response = await axios.delete(`${API_URL}/users/${id}`, { headers });
+    return response;
+  } catch (error) {
+    console.error(`Error deleting user (${id}):`, error);
+    throw error;
+  }
 };
