@@ -73,6 +73,7 @@ const SignUpForm = () => {
         required
       />
       <button type="submit">Register</button>
+      <button onClick={() => navigate("/dashboard")}>Cancel</button>
     </form>
   );
 };
